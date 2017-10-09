@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+  - name: installation of apache server on Debian based server
+    apt: name=apache2 state=installed
+    when: ansible_os_family == "Debian"
+    notify: restarting apache
+
+  - name: installation of apache server on RedHat based server
+    yum: name=httpd state=installed
+    when: ansible_os_family == "RedHat"
+    notify: restarting httpd
+
+  handlers:
+    - name: restarting apache
+      service: name=apache2 state=restarted
+
+    - name: restarting httpd
+      service: name=httpd state=restarted
