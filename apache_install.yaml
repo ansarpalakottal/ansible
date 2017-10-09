@@ -2,16 +2,35 @@
 - hosts: all
   become: true
 
+  vars:
+    apache_port: 7777
+    deb: "Debian"
+    rh: "RedHat"
+
   tasks:
-  - name: installation of apache server on Debian based server
+  - name: installation of apache server on {{deb}} based server
     apt: name=apache2 state=installed
-    when: ansible_os_family == "Debian"
+    when: ansible_os_family == "{{deb}}"
     notify: restarting apache
 
-  - name: installation of apache server on RedHat based server
+  - name: installation of apache server on {{rh}} based server
     yum: name=httpd state=installed
-    when: ansible_os_family == "RedHat"
+    when: ansible_os_family == "{{rh}}"
     notify: restarting httpd
+
+  - name: changing the apache port on {{deb}} server
+    template:
+      src: templates/ports.conf
+      dest: /etc/apache2/ports.conf
+      when: ansible_os_family == "{{deb}}"
+      notify: restarting apache
+
+  - name: changing the httpd port on {{rh}} server
+    template:
+      src: templates/httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+      when: ansible_os_family == "{{rh}}"
+      notify: restarting httpd
 
   handlers:
     - name: restarting apache
