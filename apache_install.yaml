@@ -22,15 +22,15 @@
     template:
       src: templates/ports.conf.j2
       dest: /etc/apache2/ports.conf
-      when: ansible_os_family == "{{deb}}"
-      notify: restarting apache
+    notify: restarting apache
+    when: ansible_os_family == "{{deb}}"
 
   - name: changing the httpd port on {{rh}} server
     template:
       src: templates/httpd.conf.j2
       dest: /etc/httpd/conf/httpd.conf
-      when: ansible_os_family == "{{rh}}"
-      notify: restarting httpd
+    notify: restarting httpd
+    when: ansible_os_family == "{{rh}}"
 
   handlers:
     - name: restarting apache
