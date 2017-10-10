@@ -3,7 +3,7 @@
   become: true
 
   vars:
-    apache_port: 7777
+    apache_port: 9080
     deb: "Debian"
     rh: "RedHat"
 
