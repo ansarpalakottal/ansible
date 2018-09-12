@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+
+  tasks:
+  - name: Checking connectivity
+    debug: 
+      msg: "Hi this is from {{ ansible_hostname }}"
