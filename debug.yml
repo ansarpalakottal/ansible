@@ -1,6 +1,7 @@
 ---
 - hosts: 18.223.187.166
-
+  remote_user: ansar
+  
   tasks:
   - name: Checking connectivity
     debug: 
