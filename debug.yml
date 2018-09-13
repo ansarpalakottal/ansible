@@ -5,3 +5,7 @@
   - name: Checking connectivity
     debug: 
       msg: "Hi this is from {{ ansible_hostname }}"
+      
+  - name: Hello World!!
+    debug:
+      msg: "Hello World!!!"
