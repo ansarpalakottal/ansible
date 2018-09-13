@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: 18.223.187.166
 
   tasks:
   - name: Checking connectivity
